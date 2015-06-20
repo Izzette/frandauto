@@ -19,6 +19,7 @@
     * auto.c -- Internal high entropy cellular automata
   * include -- Header for libfrandauto dir
     * frandauto.h -- libfrandauto header
+    * auto.h -- auto.c header
 * doc -- Documentation dir
   * README.md -- This document
   * CHANGELOG.md -- History of minor version changes to frandautod

@@ -1,6 +1,6 @@
-#include <frandauto.h>
+#include "include/frandauto.h"
 
-int main (int argc, char *argv) {
+int main (int argc, char **argv) {
 	return 0;
 }
 

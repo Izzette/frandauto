@@ -29,14 +29,14 @@ DIRS = $(SRC_DIR) $(LIB_DIR) $(INC_DIR) $(BUILD_DIR)
 ##  START FLAGS ##
 
 OFLAGS = -c -fpic
-SOFLAGS = -shared $(FLAGS)
+SOFLAGS = -shared
 
 #   START LOCAL FLAGS #
 
 LFLAGS = -Ofast -Wall -o
 LOFLAGS = $(OFLAGS) $(LFLAGS)
 LSOFLAGS = $(SOFLAGS) $(LFLAGS)
-LEFLAGS = -l$(BUILD_DIR)libfrandauto.so $(LFLAGS)
+LEFLAGS = $(LFLAGS)
 
 #   END LOCAL FLAGS   #
 
@@ -65,26 +65,25 @@ CC = gcc
 
 ### START TARGETS ###
 
-all: local
+all: dirs local
 
 ##  START LOCAL TARGETS ##
 
-local: local-e-frandauto
+local: dirs local-e-frandauto
 
 dirs:
 	$(MKDIR) $(DIRS)
 
-local-e-frandauto: local-so-libfrandauto
-	# LEFLAGS includes linker
-	$(CC) $(SRC_DIR)main.c $(INC_DIR)frandauto.h $(LEFLAGS) $(BUILD_DIR)frandauto
+local-e-frandauto: dirs local-so-libfrandauto
+	$(CC) $(SRC_DIR)main.c $(INC_DIR)frandauto.h $(BUILD_DIR)frandauto.o $(LEFLAGS) $(BUILD_DIR)frandauto
 
-local-so-libfrandauto: local-o-frandauto
-	$(CC) $(BUILD_DIR)frandauto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
+local-so-libfrandauto: dirs local-o-frandauto
+	$(CC) $(BUILD_DIR)frandauto.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
 
-local-o-frandauto: local-o-auto
-	$(CC) $(LIB_DIR)frandauto.c $(INC_DIR)auto.h $(BUILD_DIR)auto.o $(LOFLAGS) $(BUILD_DIR)frandauto.o
+local-o-frandauto: dirs local-o-auto
+	$(CC) $(LIB_DIR)frandauto.c $(LOFLAGS) $(BUILD_DIR)frandauto.o
 
-local-o-auto:
+local-o-auto: dirs
 	$(CC) $(LIB_DIR)auto.c $(LOFLAGS) $(BUILD_DIR)auto.o
 
 ##  END LOCAL TARGETS   ##

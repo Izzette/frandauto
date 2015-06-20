@@ -5,8 +5,12 @@ This mirrors the git log, but excludes the patch messages.  For information abou
 ##v0
 ###v0.0 -- Initial Commit
   * Created skeleton of project
-  * Wrote initial commit to CHANGELOG
   * Wrote the packages and directory structure to README
   * Makefile builds currently vacant local frandauto and libfrandauto
-
+###v0.1 -- Started auto.c
+  * Created auto.c and auto.h
+  * Added auto\_init to auto
+  * Updated Makefile
+  * Updated README
+  
 <!-- vim : set ts=2 sw=2 et syn=markdown : -->
