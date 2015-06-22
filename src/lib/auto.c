@@ -5,6 +5,7 @@
 #include "./include/globals.h"
 
 #define LRAND_BITCNT 31
+#define CLR_BIT 0x10
 
 typedef unsigned char uchar_t;
 
@@ -15,7 +16,6 @@ typedef struct __cell {
 } cell_t;
 
 cell_t *automata = NULL;
-uchar_t *last_state;
 unsigned int auto_size;
 
 /*
@@ -39,7 +39,6 @@ fra_err_t fra_init (unsigned int size) {
 		cur->state = 0;
 		(cur++)->next = automata + (++i) % auto_size;
 	}
-	last_state = &(cur - 1)->state;
 
 	return 0;
 }
@@ -58,7 +57,7 @@ fra_err_t fra_seed (time_t seed) {
 	for (i = 0; auto_size > i; ++i) {
 		if (! i % LRAND_BITCNT) v = lrand48 ();
 
-		cur->state = 0x4 * (uchar_t)(v & 0x1);
+		cur->state = ((uchar_t)(v & 0x1) ? CLR_BIT : 0x0);
 		v >>= 1;
 	}
 
