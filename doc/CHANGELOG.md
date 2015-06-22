@@ -19,5 +19,7 @@ This document includes all major and minor version changes to the project.  This
   * Added fra\_seed
   * Updated Makefile
   * Updated README
+###v0.3 -- Continued auto.c
+  * Added the series fra\_is\_init, fra\_size, fra\_is\_seed
 
 <!-- vim : set ts=2 sw=2 et syn=markdown : -->

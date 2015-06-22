@@ -1,6 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <stdbool.h>
 
 #include "./include/globals.h"
 
@@ -18,7 +19,10 @@ typedef struct __cell {
 cell_t *automata = NULL;
 unsigned int auto_size;
 
-/*
+bool is_init = false;
+bool is_seed = false;
+
+/* RET:
 0 on success
 ENOMEM if (re/m)alloc ret NULL
 */
@@ -40,10 +44,12 @@ fra_err_t fra_init (unsigned int size) {
 		(cur++)->next = automata + (++i) % auto_size;
 	}
 
+	is_init = true;
+
 	return 0;
 }
 
-/*
+/* RET:
 0 on success
 Generates seed from lrand48
 */
@@ -61,7 +67,33 @@ fra_err_t fra_seed (time_t seed) {
 		v >>= 1;
 	}
 
+	is_seed = true;
+
 	return 0;
+}
+
+/* RET:
+true on initialized
+false othersize
+*/
+bool fra_is_init () {
+	return is_init;
+}
+
+/* RET:
+true on initialized
+false othersize
+*/
+bool fra_size () {
+	return auto_size;
+}
+
+/* RET:
+true on initialized
+false othersize
+*/
+bool fra_is_seed () {
+	return is_seed;
 }
 
 // vim : set ts=4 sw=4 noet syn=c :
