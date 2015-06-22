@@ -12,5 +12,13 @@ This mirrors the git log, but excludes the patch messages.  For information abou
   * Added auto\_init to auto
   * Updated Makefile
   * Updated README
-  
+###v0.2 -- Continued auto.c
+  * Changed naming conventions, fra-prefixed  
+  * Updated directory structure
+  * Minor updates to skelaton
+  * auto\_init renamed fra\_init
+  * Added fra\_seed
+  * Updated Makefile
+  * Updated README
+
 <!-- vim : set ts=2 sw=2 et syn=markdown : -->

@@ -1,17 +1,28 @@
 #include <time.h>
 #include <stdlib.h>
+#include <errno.h>
+
+#include "./include/globals.h"
+
+#define LRAND_BITCNT 31
+
+typedef unsigned char uchar_t;
 
 typedef struct __cell {
-	unsigned char state;
+	// state must be 0x0 or 0x4
+	uchar_t state;
 	struct __cell *next;
 } cell_t;
 
 cell_t *automata = NULL;
-unsigned char *last_state;
+uchar_t *last_state;
 unsigned int auto_size;
 
-// 0 on success, -1 on failure
-int auto_init (unsigned int size) {
+/*
+0 on success
+ENOMEM if (re/m)alloc ret NULL
+*/
+fra_err_t fra_init (unsigned int size) {
 	auto_size = size;
 
 	if (automata) {
@@ -20,7 +31,7 @@ int auto_init (unsigned int size) {
 		automata = malloc (auto_size * sizeof (cell_t));
 	}
 
-	if (! automata) return -1;
+	if (! automata) return ENOMEM;
 
 	cell_t *cur = automata;
 	int i = 0;
@@ -29,6 +40,27 @@ int auto_init (unsigned int size) {
 		(cur++)->next = automata + (++i) % auto_size;
 	}
 	last_state = &(cur - 1)->state;
+
+	return 0;
+}
+
+/*
+0 on success
+Generates seed from lrand48
+*/
+fra_err_t fra_seed (time_t seed) {
+	srand48 (seed);
+
+	long v = 0;
+	cell_t *cur = automata;
+
+	int i;
+	for (i = 0; auto_size > i; ++i) {
+		if (! i % LRAND_BITCNT) v = lrand48 ();
+
+		cur->state = 0x4 * (uchar_t)(v & 0x1);
+		v >>= 1;
+	}
 
 	return 0;
 }

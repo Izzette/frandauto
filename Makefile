@@ -5,18 +5,15 @@
 ##  START LOCAL DIRS ##
 
 SRC_DIR = ./src/
-LIB_DIR = $(SRC_DIR)lib/
 INC_DIR = $(SRC_DIR)include/
+LIB_DIR = $(SRC_DIR)lib/
+LI_DIR = $(LIB_DIR)include/
 BUILD_DIR = ./build/
 
 ##  END LOCAL DIRS   ##
 
 ##  START INSTALL DIRS ##
-
-#I_LIB_DIR = /usr/lib/
-#I_INC_DIR = /usr/include/
-#I_BIN_DIR = /usr/bin/
-
+#-- NOT IMPLEMENTED! --#
 ##  END INSTALL DIRS   ##
 
 MKDIR = mkdir -p
@@ -42,49 +39,54 @@ LEFLAGS = $(LFLAGS)
 
 #   START DEBUG FLAGS #
 #-- NOT IMPLEMENTED! --#
-
-#DFLAGS = -ggdb -Wextra -o
-#DOFLAGS = $(OFLAGS) $(DFLAGS)
-#DEFLAGS = $(BUILD_DIR)frandauto.o $(EFLAGS) $(DFLAGS)
-
 #   END DEBUG FLAGS   #
 
 #   START INSTALL FLAGS #
 #-- NOT IMPLEMENTED! --#
-
-#IFLAGS = -Ofast -Wall -o
-#IEFLAGS = -lfrandauto $(EFLAGS) $(IFLAGS)
-
 #   END INSTALL FLAGS   #
 
 ##  END FLAGS   ##
 
+##  START COMPILERS ##
+
 CC = gcc
+
+##  END COMPILERS   ##
 
 ### END COMPILATION   ###
 
 ### START TARGETS ###
 
+##  START PRIMARY TARGETS ##
+
 all: dirs local
-
-##  START LOCAL TARGETS ##
-
-local: dirs local-e-frandauto
 
 dirs:
 	$(MKDIR) $(DIRS)
 
-local-e-frandauto: dirs local-so-libfrandauto
-	$(CC) $(SRC_DIR)main.c $(INC_DIR)frandauto.h $(BUILD_DIR)frandauto.o $(LEFLAGS) $(BUILD_DIR)frandauto
+local: dirs local-e-frandauto local-so-libfrandauto
 
-local-so-libfrandauto: dirs local-o-frandauto
-	$(CC) $(BUILD_DIR)frandauto.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
+##  END PRIMARY TARGETS   ##
 
-local-o-frandauto: dirs local-o-auto
+##  START LOCAL TARGETS ##
+
+local-e-frandauto: dirs local-o-main local-o-options local-o-frandauto
+	$(CC) $(BUILD_DIR)*.o $(INC_DIR)*.h $(LI_DIR)*.h $(LEFLAGS) $(BUILD_DIR)frandauto
+
+local-o-main: dirs
+	$(CC) $(SRC_DIR)main.c $(LOFLAGS) $(BUILD_DIR)main.o
+
+local-o-options: dirs
+	$(CC) $(SRC_DIR)options.c $(LOFLAGS) $(BUILD_DIR)options.o
+
+local-o-frandauto: dirs
 	$(CC) $(LIB_DIR)frandauto.c $(LOFLAGS) $(BUILD_DIR)frandauto.o
 
 local-o-auto: dirs
 	$(CC) $(LIB_DIR)auto.c $(LOFLAGS) $(BUILD_DIR)auto.o
+
+local-so-libfrandauto: dirs local-o-frandauto local-o-auto
+	$(CC) $(BUILD_DIR)frandauto.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
 
 ##  END LOCAL TARGETS   ##
 

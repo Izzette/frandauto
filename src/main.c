@@ -1,6 +1,9 @@
-#include "include/frandauto.h"
+#include "./lib/include/frandauto.h"
 
-int main (int argc, char **argv) {
+#include "./include/globals.h"
+#include "./include/options.h"
+
+fra_err_t main (int argc, char **argv) {
 	return 0;
 }
 
