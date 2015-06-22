@@ -1,6 +1,5 @@
 # Changelog
-This document includes all major and minor version changes to the project.
-This mirrors the git log, but excludes the patch messages.  For information about patches see the git log.
+This document includes all major and minor version changes to the project.  This mirrors the git log, but excludes the patch messages.  For information about patches see the git log.
 
 ##v0
 ###v0.0 -- Initial Commit

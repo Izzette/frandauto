@@ -1,12 +1,12 @@
 #frandauto -- Fast Random Automata
 
 ##Current Status:
-v0.2.0 -- Alpha
-Build passing
+v0.2.0 -- Alpha.
+Build passing.
 
 ##License:
-Unlicensed, free to use and distribute
-Copyright (c) Isabell Cowan 2015
+Unlicensed, free to use and distribute.
+Copyright (c) Isabell Cowan 2015.
 
 ##Provides:
 * frandauto
