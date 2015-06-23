@@ -77,6 +77,7 @@ bool fra_size () {
 
 void fra_free () {
 	free (__fra_automata);
+	__fra_is_init = false;
 }
 
 #define LRAND_BITCNT 31
