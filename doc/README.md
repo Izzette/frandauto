@@ -1,7 +1,7 @@
 #frandauto -- Fast Random Automata
 
 ##Current Status:
-v0.3.1 -- Alpha.
+v0.4.0 -- Alpha.
 Build passing.
 
 ##License:
@@ -9,31 +9,31 @@ Unlicensed, free to use and distribute.
 Copyright (c) Isabell Cowan 2015.
 
 ##Provides:
-* frandauto
-  * Executable generating random sequences
-  * Full command line user interface
-  * Depends on libfrandauto
-* libfrandauto
-  * C library for the generation of random numbers and sequences
+###frandauto
+* Executable generating random sequences
+* Full command line user interface
+* Depends on libfrandauto
+###libfrandauto
+* C library for the generation of random numbers and sequences
 
 ##Contains:
-* doc -- Documentation dir
-  * CHANGELOG.md -- History of minor version changes to this project
-  * README.md -- This document
-* src -- Source code dir
-  * include -- Header for libfrandauto dir
-    * globals.h -- global variables for main.c options.c communication
-    * options.h -- options.c header
-  * lib -- libfrandauto dir
-    * auto.c -- Interface for high entropy automata
-    * frandauto.c -- Converts automata states to useful numbers and sequences
-  * lib/include -- libfrandauto headers dir
-    * auto.h -- headers for auto.c
-    * frandauto.h -- header for linking in (lib)frandauto.(s)o
-    * globals.h -- header for shared macros and types
-  * options.c -- Command line option parsing
-  * main.c -- Contains main for frandauto executeable
-* Makefile -- Makefile to build frandauto and libfrandauto locally
-* README.md -- symbolic link to doc/README.md
+###Project root
+* Makefile -- Builds frandauto and libfrandauto
+* README.md -- Symbolic link to doc/README.md
+###doc -- Documentation directory
+* CHANGELOG.md -- Log of minor version changes
+* README.md -- This document
+###src -- Source code directory
+* options.c -- Parsing command line options frandauto
+* main.c -- Contains entry point for frandauto
+###src/include -- Headers for frandauto
+* globals.h -- Globals for communication between options.c and main.c
+* options.h -- Header for options.c
+###src/lib -- Source code for libfrandauto
+* auto.c -- Cellular automata generation
+* conv.c -- Converts array of cellular automata states to various useful forms
+* next.c -- Provides functions for simultaneous manipulation of auto.c and conv.c, ie `fra_next_<..>`
+###src/lib/include -- Header(s) for libfrandauto
+* frandauto.h -- Api for libfrandauto
 
 <!-- vim : set ts=2 sw=2 et syn=markdown : -->

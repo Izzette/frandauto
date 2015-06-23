@@ -70,7 +70,7 @@ local: dirs local-e-frandauto local-so-libfrandauto
 
 ##  START LOCAL TARGETS ##
 
-local-e-frandauto: dirs local-o-main local-o-options local-o-frandauto
+local-e-frandauto: dirs local-o-main local-o-options local-o-next local-o-conv local-o-auto
 	$(CC) $(BUILD_DIR)*.o $(INC_DIR)*.h $(LI_DIR)*.h $(LEFLAGS) $(BUILD_DIR)frandauto
 
 local-o-main: dirs
@@ -79,14 +79,17 @@ local-o-main: dirs
 local-o-options: dirs
 	$(CC) $(SRC_DIR)options.c $(LOFLAGS) $(BUILD_DIR)options.o
 
-local-o-frandauto: dirs
-	$(CC) $(LIB_DIR)frandauto.c $(LOFLAGS) $(BUILD_DIR)frandauto.o
+local-o-next: dirs
+	$(CC) $(LIB_DIR)next.c $(LOFLAGS) $(BUILD_DIR)next.o
+
+local-o-conv: dirs
+	$(CC) $(LIB_DIR)conv.c  $(LOFLAGS) $(BUILD_DIR)conv.o
 
 local-o-auto: dirs
 	$(CC) $(LIB_DIR)auto.c $(LOFLAGS) $(BUILD_DIR)auto.o
 
-local-so-libfrandauto: dirs local-o-frandauto local-o-auto
-	$(CC) $(BUILD_DIR)frandauto.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
+local-so-libfrandauto: dirs local-o-next local-o-conv local-o-auto
+	$(CC) $(BUILD_DIR)next.o $(BUILD_DIR)conv.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
 
 ##  END LOCAL TARGETS   ##
 
