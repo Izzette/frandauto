@@ -6,11 +6,13 @@ This document includes all major and minor version changes to the project.  This
 * Created skeleton of project
 * Wrote the packages and directory structure to README
 * Makefile builds currently vacant local frandauto and libfrandauto
+
 ###v0.1 -- Started auto.c
 * Created auto.c and auto.h
 * Added auto\_init to auto
 * Updated Makefile
 * Updated README
+
 ###v0.2 -- Continued auto.c
 * Changed naming conventions, fra-prefixed  
 * Updated directory structure
@@ -19,8 +21,10 @@ This document includes all major and minor version changes to the project.  This
 * Added fra\_seed
 * Updated Makefile
 * Updated README
+
 ###v0.3 -- Continued auto.c
 * Added the series fra\_is\_init, fra\_size, fra\_is\_seed
+
 ###v0.4 -- Finished auto.c
 * Added fra\_free, fra\_step, and fra\_get\_states
 * Cleaned up unneeded headers in src/lib/include
