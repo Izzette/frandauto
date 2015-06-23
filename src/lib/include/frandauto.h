@@ -23,7 +23,7 @@ bool fra_is_init ();
 true on initialized
 false othersize
 */
-bool fra_size ();
+unsigned int fra_size ();
 
 #undef fra_free
 void fra_free ();

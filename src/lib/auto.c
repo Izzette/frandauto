@@ -44,7 +44,7 @@ fra_err_t fra_init (unsigned int size) {
 
 	__fra_cell_t *cur = __fra_automata;
 
-	int i;
+	unsigned int i;
 	for (i = 1; __fra_auto_size > i; ++i) {
 		cur->state = 0;
 		cur->next = cur + 1;
@@ -71,7 +71,7 @@ bool fra_is_init () {
 true on initialized
 false othersize
 */
-bool fra_size () {
+unsigned int fra_size () {
 	return __fra_auto_size;
 }
 
@@ -80,7 +80,7 @@ void fra_free () {
 	__fra_is_init = false;
 }
 
-#define LRAND_BITCNT 31
+#define LRAND_BITCNT 31U
 
 /* RET:
 0 on success
@@ -92,14 +92,13 @@ fra_err_t fra_seed (time_t seed) {
 	long v = 0;
 	__fra_cell_t *cur = __fra_automata;
 
-	int i;
+	unsigned int i;
 	for (i = 0; __fra_auto_size > i; ++i) {
 		if (! i % LRAND_BITCNT) v = lrand48 ();
 
 		cur->state = ((__fra_uchar_t)(v & 0x1) ? CLR_BIT : BLK_BIT);
 		v >>= 1;
-	}
-
+cur = cur->next; } 
 	__fra_is_seed = true;
 
 	return 0;
@@ -113,8 +112,7 @@ bool fra_is_seed () {
 	return __fra_is_seed;
 }
 
-#define NH_LEN 5
-#define NMEM_LEN 3
+#define NH_LEN 5U
 
 #define ROTATE(h, l, f) { f = l; l = h; h = h->next; }
 
@@ -124,7 +122,7 @@ void fra_step (unsigned int iter) {
 	__fra_cell_t *head, *last, *full;
 	head = __fra_automata; last = NULL; full = NULL;
 
-	int i, j;
+	unsigned int i, j;
 	for (j = 0; iter > j; ++j) {
 		for (i = 1; NH_LEN > i; ++i) {
 			nh >>= 1;
@@ -141,7 +139,7 @@ void fra_step (unsigned int iter) {
 
 		ROTATE (head, last, full);
 
-		for (i = 1; __fra_auto_size > i; ++i) {
+		for (i = 2; __fra_auto_size > i; ++i) {
 			nh >>= 1;
 			nh |= head->state;
 
@@ -174,9 +172,9 @@ fra_err_t fra_get_states (unsigned char **out) {
 
 	__fra_cell_t *cur = __fra_automata;
 
-	int i;
+	unsigned int i;
 	for (i = 0; __fra_auto_size > i; ++i) {
-		*out[i] = cur->state;
+		*(*out + i) = (cur->state ? 1 : 0);
 		cur = cur->next;
 	}
 

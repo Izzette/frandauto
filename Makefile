@@ -38,7 +38,12 @@ LEFLAGS = $(LFLAGS)
 #   END LOCAL FLAGS   #
 
 #   START DEBUG FLAGS #
-#-- NOT IMPLEMENTED! --#
+
+DFLAGS = -ggdb -Wextra -o
+DOFLAGS = $(OFLAGS) $(DFLAGS)
+DSOFLAGS = $(SOFLAGS) $(DFLAGS)
+DEFLAGS = $(DFLAGS)
+
 #   END DEBUG FLAGS   #
 
 #   START INSTALL FLAGS #
@@ -65,6 +70,8 @@ dirs:
 	$(MKDIR) $(DIRS)
 
 local: dirs local-e-frandauto local-so-libfrandauto
+
+debug: dirs debug-e-frandauto debug-so-libfrandauto
 
 ##  END PRIMARY TARGETS   ##
 
@@ -94,7 +101,28 @@ local-so-libfrandauto: dirs local-o-next local-o-conv local-o-auto
 ##  END LOCAL TARGETS   ##
 
 ##  START DEBUG TARGETS ##
-#-- NOT IMPLEMENTED! --#
+
+debug-e-frandauto: dirs debug-o-main debug-o-options debug-o-next debug-o-conv debug-o-auto
+	$(CC) $(BUILD_DIR)*.o $(INC_DIR)*.h $(LI_DIR)*.h $(DEFLAGS) $(BUILD_DIR)frandauto
+
+debug-o-main: dirs
+	$(CC) $(SRC_DIR)main.c $(DOFLAGS) $(BUILD_DIR)main.o
+
+debug-o-options: dirs
+	$(CC) $(SRC_DIR)options.c $(DOFLAGS) $(BUILD_DIR)options.o
+
+debug-o-next: dirs
+	$(CC) $(LIB_DIR)next.c $(DOFLAGS) $(BUILD_DIR)next.o
+
+debug-o-conv: dirs
+	$(CC) $(LIB_DIR)conv.c  $(DOFLAGS) $(BUILD_DIR)conv.o
+
+debug-o-auto: dirs
+	$(CC) $(LIB_DIR)auto.c $(DOFLAGS) $(BUILD_DIR)auto.o
+
+debug-so-libfrandauto: dirs debug-o-next debug-o-conv debug-o-auto
+	$(CC) $(BUILD_DIR)next.o $(BUILD_DIR)conv.o $(BUILD_DIR)auto.o $(DSOFLAGS) $(BUILD_DIR)libfrandauto.so
+
 ##  END DEBUG TARGETS   ##
 
 ##  START INSTALL TARGETS ##
