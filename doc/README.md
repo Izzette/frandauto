@@ -1,7 +1,7 @@
 #frandauto -- Fast Random Automata
 
 ##Current Status:
-v0.5 -- Alpha.
+v0.6 -- Alpha.
 Build passing.
 
 ##License:

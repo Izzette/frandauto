@@ -35,4 +35,9 @@ This document includes all major and minor version changes to the project.  This
 * Makefile build debug targets under the tag `debug`
 * Debug targets use gdb debugger
 
+###v0.6 -- Started conv.c and next.c
+* Added `fra_to_ascii` and `fra_to_bytes` to conv.c
+* Added `fra_next_ascii` to next.c, depends on `fra_to_bytes`
+* Added comments in headers and files
+
 <!-- vim : set ts=2 sw=2 et syn=markdown : -->
