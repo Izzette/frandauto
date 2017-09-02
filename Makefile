@@ -1,4 +1,4 @@
-#!/usr/bin/make -f
+# Makefile
 
 ### START DIRS ###
 
@@ -58,6 +58,12 @@ CC = gcc
 
 ##  END COMPILERS   ##
 
+##  START ARCHIVERS ##
+
+AR = ar
+
+##  END ARCHIVERS   ##
+
 ### END COMPILATION   ###
 
 ### START TARGETS ###
@@ -69,7 +75,7 @@ all: dirs local
 dirs:
 	$(MKDIR) $(DIRS)
 
-local: dirs local-e-frandauto local-so-libfrandauto
+local: dirs local-e-frandauto local-so-libfrandauto local-a-libfrandauto
 
 debug: dirs debug-e-frandauto debug-so-libfrandauto
 
@@ -97,6 +103,9 @@ local-o-auto: dirs
 
 local-so-libfrandauto: dirs local-o-next local-o-conv local-o-auto
 	$(CC) $(BUILD_DIR)next.o $(BUILD_DIR)conv.o $(BUILD_DIR)auto.o $(LSOFLAGS) $(BUILD_DIR)libfrandauto.so
+
+local-a-libfrandauto: dirs local-o-next local-o-conv local-o-auto
+	$(AR) rcs $(BUILD_DIR)libfrandauto.a $(BUILD_DIR)next.o $(BUILD_DIR)conv.o $(BUILD_DIR)auto.o
 
 ##  END LOCAL TARGETS   ##
 
