@@ -1,0 +1,5 @@
+# .gitignore
+
+build
+
+# vim: set syn=conf:
